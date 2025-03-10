@@ -1,0 +1,50 @@
+{
+  "name": "hexagonal-for-lambda",
+  "version": "1.0.0",
+  "description": "Hexagonal architecture archetype for use in lambdas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AramisMario/hexagonal-lambda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AramisMario/hexagonal-lambda/issues"
+  },
+  "homepage": "https://github.com/AramisMario/hexagonal-lambda#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "aws-sdk": "^2.1691.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.1"
+  },
+  "_moduleAliases": {
+    "@application": "dist/application/",
+    "@domainErrors": "dist/domain/domainErrors/",
+    "@domain": "dist/domain/",
+    "@drivingAdapters": "dist/infrastructure/driving/adapters/",
+    "@drivenRepositories": "dist/infrastructure/driving/repositories/",
+    "@drivenMappers": "dist/infrastructure/driven/mappers/",
+    "@drivingMappers": "dist/infrastructure/driving/mappers/",
+    "@infrastructure": "dist/infrastructure",
+    "@useCases": "dist/application/useCases/",
+    "@entities": "dist/domain/entities/",
+    "@models": "dist/domain/models/",
+    "@secondaryPorts": "dist/application/ports/secondaryPorts/",
+    "@primaryPorts": "dist/application/ports/primaryPorts/",
+    "@baseError": "dist/domain/domainErrors/baseError/",
+    "@utils": "dist/utils/",
+    "@dtos": "dist/infrastructure/driving/DTOs/",
+    "@repositoryErrors": "dist/infrastructure/driven/repositories/myEntity/repository/errors/",
+    "@thirdPartyErrors": "dist/infrastructure/driven/adapters/thirdPartyApi/errors/"
+  }
+}

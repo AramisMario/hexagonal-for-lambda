@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "system",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "experimentalDecorators": true,
+        "paths": {
+            "@application/*": ["./src/application/*"],
+            "@domainErrors/*": ["./src/domain/domainErrors/*"],
+            "@domain/*": ["./src/domain/*"],
+            "@drivingAdapters/*": ["./src/infrastructure/driving/adapters/*"],
+            "@drivenAdapters/*": ["./src/infrastructure/driven/adapters/*"],
+            "@drivenRepositories/*": ["./src/infrastructure/driven/repositories/*"],
+            "@drivenMappers/*": ["./src/infrastructure/driven/mappers/*"],
+            "@drivingMappers/*": ["./src/infrastructure/driving/mappers/*"],
+            "@infrastructure/*": ["./src/infrastructure/*"],
+            "@useCases/*": ["./src/application/useCases/*"],
+            "@entities/*": ["./src/domain/entities/*"],
+            "@models/*": ["./src/domain/models/*"],
+            "@secondaryPorts/*": ["./src/application/ports/secondaryPorts/*"],
+            "@primaryPorts/*": ["./src/application/ports/primaryPorts/*"],
+            "@baseError/*": ["./src/domain/domainErrors/baseError/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@dtos/*": ["./src/infrastructure/driving/DTOs/*"],
+            "@repositoryErrors/*": ["./src/infrastructure/driven/repositories/myEntity/repository/errors/*"],
+            "@thirdPartyErrors/*": ["./src/infrastructure/driven/adapters/thirdPartyApi/errors/*"]
+        }
+    },
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
