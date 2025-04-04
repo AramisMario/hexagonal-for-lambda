@@ -10,6 +10,7 @@ import { TransactionValidationFail } from "@domainErrors/entityErrors/transactio
 import { BodyMapper } from "@drivingMappers/bodyMapper";
 import { validate } from "class-validator";
 import { UnexpectedError } from '@domainErrors/generalErrors/unexpectedError';
+import { CaseDataMapper } from '@drivingMappers/dataMapper';
 export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatewayProxyEventV2,dependencies:dependenciesType) => {
 
     try{
@@ -28,7 +29,9 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
             );
         }
 
-        const result = await useCase.exec(requestDTO,dependencies);
+        const caseData = CaseDataMapper.mapCaseData(requestDTO);
+        
+        const result = await useCase.exec(caseData,dependencies);
 
         const responseData = new ResponseDTO(
             result.debitedAmount,
