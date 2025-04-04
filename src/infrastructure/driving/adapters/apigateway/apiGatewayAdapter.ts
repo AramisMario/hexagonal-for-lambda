@@ -11,6 +11,7 @@ import { BodyMapper } from "@drivingMappers/bodyMapper";
 import { validate } from "class-validator";
 import { UnexpectedError } from '@domainErrors/generalErrors/unexpectedError';
 import { CaseDataMapper } from '@drivingMappers/dataMapper';
+import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
 export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatewayProxyEventV2,dependencies:dependenciesType) => {
 
     try{
@@ -22,11 +23,8 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
 
         if(!isValid){
             // log the validation error
-            return Utils.response(
-                400,
-                HTTP_RESPONSES.BAD_REQUEST.code,
-                HTTP_RESPONSES.BAD_REQUEST.message
-            );
+            throw new BadRequestError();
+
         }
 
         const caseData = CaseDataMapper.mapCaseData(requestDTO);
@@ -47,6 +45,15 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
 
     }catch(error){
         switch(error.code){
+
+            case BadRequestError.code:
+                // log the error here
+                return Utils.response(
+                    BadRequestError.httpCode,
+                    BadRequestError.code,
+                    BadRequestError.message
+                );
+
             case EntityPreconditionFailed.code:
                 // log the error here
                 return Utils.response(
