@@ -9,26 +9,27 @@ import { FindAccountCase } from "@useCases/findAccountCase";
 import { TransactionCase } from "@useCases/transactionCase";
 import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
-import { ServiceRepositoryPort } from "@application/ports/secondaryPorts/serviceRepository/serviceRepositoryPort";
+import { RepositoryPort } from "@application/ports/secondaryPorts/repository/repositoryPort";
+import { Entity } from "@domain/entities/entity";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
     messageQueue: SqsQueuePort,
-    serviceRepository: ServiceRepositoryPort
+    repository: RepositoryPort
 };
 
 export class UseCase implements UseCasePort{
 
     async exec(data: CaseData, dependencies: dependenciesType){
-        const { thirdPartyApi, messageQueue, serviceRepository } = dependencies;
+        const { thirdPartyApi, messageQueue, repository } = dependencies;
 
         try{
 
             const findAccount:FindAccountCasePort = new FindAccountCase();
 
-            let account;
+            let account: Entity;
             try{
-                account = await findAccount.exec(data.account, {serviceRepository});
+                account = await findAccount.exec(data.account, {repository});
             }catch(error){
                 // log the error here and handle the error
                 throw error;
@@ -38,10 +39,10 @@ export class UseCase implements UseCasePort{
                 throw new EntityPreconditionFailed();
             }
 
-            let transactionResult;
+            let transactionResult: DebitedSuccessful;
             try{
                 const transactionCase = new TransactionCase();
-                transactionResult = await transactionCase.exec({account, amount: data.amount},{serviceRepository});
+                transactionResult = await transactionCase.exec({account, amount: data.amount},{repository});
             }catch(error){
                 // log the error here and handle the error
                 throw error;
@@ -63,12 +64,7 @@ export class UseCase implements UseCasePort{
                 throw error;
             }
 
-            const response: DebitedSuccessful = {
-                debitedAmount: transactionResult.debited,
-                cost: transactionResult.cost
-            }
-
-            return response;
+            return transactionResult;
 
         }catch(error){
             // some logic needed to handle de error or using a logger

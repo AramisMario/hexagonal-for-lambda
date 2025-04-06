@@ -3,30 +3,39 @@ import { TransactionValidationFail } from "@domainErrors/entityErrors/transactio
 import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/myEntity/repository/errors/repositoryErrors";
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
-
+import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
+import { Entity } from "@domain/entities/entity";
+import { DebitedSuccessful } from "@domain/models/debitedSucess";
+import { EntityProps } from "@domain/entities/entity";
 export class EntityMysqlRepository implements RepositoryPort{
 
 
-    async create(data:any): Promise<any>{
+    private mapper: MyEntityMapper;
+    constructor(mapper:MyEntityMapper){
+        this.mapper = mapper;
+    }
+    
+
+    async create(entityProps:EntityProps): Promise<Entity>{
 
         try{
 
             // make your create and select query
     
-            const createdRecord = {
+            const createdRecordResponse = {
                 first: 12345678,
                 second: 654245,
                 state: "ACTIVE"
             }
     
-            return createdRecord;
+            return this.mapper.mapToEntity(createdRecordResponse);
         }catch(error){
             // you could use a logging method here to regist the error code
             throw new UnexpectedError();
         }
     }
 
-    async update(data:any): Promise<any>{
+    async update(entity:Entity): Promise<Entity>{
         try{
             // make your query
     
@@ -35,7 +44,7 @@ export class EntityMysqlRepository implements RepositoryPort{
                 second: 654245,
                 state: "ACTIVE"
             }
-            return updatedRecord;
+            return this.mapper.mapToEntity(updatedRecord);
         }catch(error){
             // handle database errors
             // you could use a logging method here to regist the error code
@@ -43,7 +52,7 @@ export class EntityMysqlRepository implements RepositoryPort{
         }
     }
 
-    async findByID<T>(id: T): Promise<any>{
+    async findByID(id: number): Promise<Entity>{
         try{
             // make your query
 
@@ -53,20 +62,20 @@ export class EntityMysqlRepository implements RepositoryPort{
                 state: "ACTIVE"
             }
 
-            return record;
+            return this.mapper.mapToEntity(record);
         }catch(error){
             // you could use a logging method here to regist the error code
             throw new EntityNotFoundError();
         }
     }
 
-    async delete(data: any): Promise<any>{
+    async delete(entity: Entity): Promise<boolean>{
         try{
             // make your query
             const deletedRecord = {
 
             }
-            return deletedRecord;
+            return true;
 
         }catch(error){
             // handle database errors
@@ -75,21 +84,23 @@ export class EntityMysqlRepository implements RepositoryPort{
         }
     }
 
-    async transaction(account: any, transactionType: string, amount: number): Promise<any> {
+    async transaction(entity: Entity, transactionType: string, amount: number): Promise<DebitedSuccessful> {
 
         try{
 
             // auto invoekd function to mock a transaction
             // you could use a logging method here to regist the error code
-            const transactionResul =  await ((account) => {
+            const transactionResult =  await ((account) => {
                 console.log(`Doing transaction ${transactionType} amount: ${amount} account: ${account}`);
                 return {
-                    debited: 1500,
-                    cost: 0,
+                    result:{
+                        debited: 1500,
+                        cost: 0,
+                    }
                 }
-            })(account);
+            })(entity.getAccountNumber());
     
-            return transactionResul;
+            return this.mapper.mapToModel(transactionResult.result);
         }catch(error){
 
             // you could use a logging method here to regist the error code

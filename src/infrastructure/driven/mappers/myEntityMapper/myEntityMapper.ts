@@ -1,5 +1,5 @@
 import { Entity } from "@domain/entities/entity";
-
+import { DebitedSuccessful } from "@domain/models/debitedSucess";
 export class MyEntityMapper{
 
     mapToRepository(entity: Entity){
@@ -15,10 +15,18 @@ export class MyEntityMapper{
         const props = {
             firstAttribute: record.first,
             secondAttribute: record.second,
-            state: record.state
+            state: record.state,
+            accountNumber: record.accountNumber
         };
 
         return new Entity(props);
+    }
+
+    mapToModel(record: any): DebitedSuccessful{
+        return {
+            debitedAmount: record.debitedAmount,
+            cost: record.cost,
+        }
     }
 
 }
