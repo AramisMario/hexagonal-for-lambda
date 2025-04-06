@@ -24,11 +24,10 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
         if(!isValid){
             // log the validation error
             throw new BadRequestError();
-
         }
 
         const caseData = CaseDataMapper.mapCaseData(requestDTO);
-        
+
         const result = await useCase.exec(caseData,dependencies);
 
         const responseData = new ResponseDTO(
