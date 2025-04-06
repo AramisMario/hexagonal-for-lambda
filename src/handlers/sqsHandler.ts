@@ -8,15 +8,16 @@ import { APIGatewayProxyEventV2, EventBridgeEvent, SQSEvent } from "aws-lambda";
 import { sqsAdapter } from "@drivingAdapters/sqs/sqsAdapter";
 import { ServiceRepository } from '@infrastructure/driven/repositories/myEntity/serviceRepository/serviceRepository';
 import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+
+const dependencies: dependenciesType = {
+    thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
+    messageQueue: new SqsQueue(QUEUE_URL),
+    serviceRepository: new ServiceRepository(new EntityMysqlRepository(),new MyEntityMapper())
+}
+
+const useCase = new UseCase();
+
 export const handler = async (event:APIGatewayProxyEventV2 | EventBridgeEvent<any,any> | SQSEvent) => {
-
-    const useCase = new UseCase();
-
-    const dependencies: dependenciesType = {
-        thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
-        messageQueue: new SqsQueue(QUEUE_URL),
-        serviceRepository: new ServiceRepository(new EntityMysqlRepository(),new MyEntityMapper())
-    }
 
     return await sqsAdapter(useCase)(event as SQSEvent,dependencies); 
 
