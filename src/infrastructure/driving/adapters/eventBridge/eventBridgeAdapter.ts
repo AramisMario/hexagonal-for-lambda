@@ -6,7 +6,8 @@ import { validate } from "class-validator";
 import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
 import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
-
+import { CaseDataMapper } from "@drivingMappers/dataMapper";
+import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
 export const eventBridgeAdapter = (useCase: UseCasePort) => async (event:EventBridgeEvent<any,any>,dependencies:dependenciesType) => {
 
     try{
@@ -17,11 +18,18 @@ export const eventBridgeAdapter = (useCase: UseCasePort) => async (event:EventBr
     
         if(!isValid){
             // use a logger to log the validation
+            throw new BadRequestError();
         }
+        const caseData = CaseDataMapper.mapCaseData(requestDTO);
 
-        await useCase.exec(requestDTO,dependencies);
+        await useCase.exec(caseData,dependencies);
     }catch(error){
         switch(error.code){
+
+            case BadRequestError.code:
+                    // log the error here and do what you need 
+                break;
+
             case EntityPreconditionFailed.code:
                     // log the error here and do what you need 
                 break;
