@@ -10,15 +10,15 @@ import { apigatewayAdapter } from "@drivingAdapters/apigateway/apiGatewayAdapter
 import { ServiceRepository } from '@infrastructure/driven/repositories/myEntity/serviceRepository/serviceRepository';
 import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
 
+const dependencies: dependenciesType = {
+    thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
+    messageQueue: new SqsQueue(QUEUE_URL),
+    serviceRepository: new ServiceRepository(new EntityMysqlRepository(),new MyEntityMapper())
+}
+
+const useCase = new UseCase();
+
 export const handler = async (event:APIGatewayProxyEventV2) => {
-
-    const useCase = new UseCase();
-
-    const dependencies: dependenciesType = {
-        thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
-        messageQueue: new SqsQueue(QUEUE_URL),
-        serviceRepository: new ServiceRepository(new EntityMysqlRepository(),new MyEntityMapper())
-    }
 
     return await apigatewayAdapter(useCase)(event as APIGatewayProxyEventV2,dependencies); 
 
