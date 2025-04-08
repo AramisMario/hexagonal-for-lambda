@@ -1,11 +1,12 @@
 import { MessageCasePort } from "@primaryPorts/useCases/messageCasePort";
-import { SqsQueuePort } from "@secondaryPorts/sqsQueue/sqsQueuePort";
+import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
+import { DebitedSuccessful } from "@domain/models/debitedSucess";
 export type dependenciesType = {
-    messageQueue: SqsQueuePort,
+    messageQueue: QueuePort,
 }
 
 export class MessageCase implements MessageCasePort{
-    async sendMessage(message: any, dependencies: dependenciesType): Promise<any> {
+    async sendMessage(message: DebitedSuccessful, dependencies: dependenciesType): Promise<string> {
 
         const { messageQueue } = dependencies;
         try{

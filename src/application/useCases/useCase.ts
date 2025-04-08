@@ -1,5 +1,5 @@
 import { CaseData } from "@models/caseData";
-import { SqsQueuePort } from "@secondaryPorts/sqsQueue/sqsQueuePort";
+import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
 import { DebitedSuccessful } from "@models/debitedSucess";
 import { ThirdPartyApiPort } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
 import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
@@ -14,7 +14,7 @@ import { Entity } from "@domain/entities/entity";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
-    messageQueue: SqsQueuePort,
+    messageQueue: QueuePort,
     repository: RepositoryPort
 };
 

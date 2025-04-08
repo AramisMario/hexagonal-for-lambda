@@ -1,14 +1,17 @@
+import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { ThirdPartyApiCasePort } from "@primaryPorts/useCases/thirdPartyApiCasePort";
-import { ThirdPartyApiPort } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
+import { ThirdPartyApiPort, ThridPartyPortResponseType } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
 };
 export class ThirdPartyApiCase implements ThirdPartyApiCasePort{
-    async exec(data: any, dependencies: dependenciesType): Promise<any> {
+    async exec(data: DebitedSuccessful, dependencies: dependenciesType): Promise<ThridPartyPortResponseType> {
         const { thirdPartyApi } = dependencies;
         try{
-            return await thirdPartyApi.callThirdPartyAPI(data);
+            
+            const response = await thirdPartyApi.callThirdPartyAPI(data);
+            return response
         }catch(error){
             // handle and log the error
             throw error;
