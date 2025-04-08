@@ -12,6 +12,7 @@ import { validate } from "class-validator";
 import { UnexpectedError } from '@domainErrors/generalErrors/unexpectedError';
 import { CaseDataMapper } from '@drivingMappers/dataMapper';
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
+import { CaseData } from '@domain/models/caseData';
 export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatewayProxyEventV2,dependencies:dependenciesType) => {
 
     try{
@@ -26,7 +27,7 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
             throw new BadRequestError();
         }
 
-        const caseData = CaseDataMapper.mapCaseData(requestDTO);
+        const caseData: CaseData = CaseDataMapper.mapCaseData(requestDTO);
 
         const result = await useCase.exec(caseData,dependencies);
 

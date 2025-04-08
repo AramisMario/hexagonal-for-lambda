@@ -8,6 +8,7 @@ import { TransactionValidationFail } from "@domainErrors/entityErrors/transactio
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { CaseDataMapper } from "@drivingMappers/dataMapper";
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
+import { CaseData } from "@domain/models/caseData";
 export const sqsAdapter = (useCase: UseCasePort) => async (event:SQSEvent,dependencies:dependenciesType) => {
 
     const records = event.Records;
@@ -21,7 +22,7 @@ export const sqsAdapter = (useCase: UseCasePort) => async (event:SQSEvent,depend
                 // log the validation error
                 throw new BadRequestError();
             }
-            const caseData = CaseDataMapper.mapCaseData(requestDTO);
+            const caseData: CaseData = CaseDataMapper.mapCaseData(requestDTO);
 
             await useCase.exec(caseData,dependencies);
 
