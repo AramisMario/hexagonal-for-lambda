@@ -1,4 +1,4 @@
-import { RepositoryPort } from "@secondaryPorts/repository/repositoryPort";
+import { RepositoryPort } from "@domain/ports/repository/repositoryPort";
 import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
 import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/myEntity/repository/errors/repositoryErrors";
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";

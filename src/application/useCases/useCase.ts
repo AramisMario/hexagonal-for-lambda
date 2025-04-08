@@ -9,7 +9,7 @@ import { FindAccountCase } from "@useCases/findAccountCase";
 import { TransactionCase } from "@useCases/transactionCase";
 import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
-import { RepositoryPort } from "@application/ports/secondaryPorts/repository/repositoryPort";
+import { RepositoryPort } from "@domain/ports/repository/repositoryPort";
 import { Entity } from "@domain/entities/entity";
 
 export type dependenciesType = {
