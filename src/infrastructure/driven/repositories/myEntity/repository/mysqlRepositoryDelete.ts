@@ -1,7 +1,7 @@
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Entity } from "@domain/entities/entity";
-import { RepositoryPortDelete } from "@domain/ports/repository/repositoryPortDelete";
+import { RepositoryPortDelete } from "@domain/repository/repositoryPortDelete";
 export class EntityMysqlRepositoryDelete implements RepositoryPortDelete{
 
 

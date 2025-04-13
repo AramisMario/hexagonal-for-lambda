@@ -5,7 +5,7 @@ import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Entity } from "@domain/entities/entity";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
-import { RepositoryPortTransaction } from "@domain/ports/repository/repositoryPortTransact";
+import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
 export class EntityMysqlRepositoryTransaction implements RepositoryPortTransaction{
 
 

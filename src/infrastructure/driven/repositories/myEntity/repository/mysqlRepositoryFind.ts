@@ -2,7 +2,7 @@ import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Entity } from "@domain/entities/entity";
 
-import { RepositoryPortFind } from "@domain/ports/repository/repositoryPortFind";
+import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
 export class EntityMysqlRepositoryFind implements RepositoryPortFind{
 
 

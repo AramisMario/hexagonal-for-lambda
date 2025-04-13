@@ -1,4 +1,4 @@
-import { RepositoryPortCreate } from "@domain/ports/repository/repositoryPortCreate";
+import { RepositoryPortCreate } from "@domain/repository/repositoryPortCreate";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Entity } from "@domain/entities/entity";

@@ -1,5 +1,5 @@
 import { FindAccountCasePort } from "@primaryPorts/useCases/findAccountCasePort";
-import { RepositoryPortFind } from "@domain/ports/repository/repositoryPortFind";
+import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
 import { Entity } from "@domain/entities/entity";
 export type dependenciesType = {
     repositoryFind: RepositoryPortFind

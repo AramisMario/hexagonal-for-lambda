@@ -1,7 +1,7 @@
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Entity } from "@domain/entities/entity";
-import { repositoryPortUpdate } from "@domain/ports/repository/repositoryPortUpdate";
+import { repositoryPortUpdate } from "@domain/repository/repositoryPortUpdate";
 export class EntityMysqlRepositoryUpdate implements repositoryPortUpdate{
 
 

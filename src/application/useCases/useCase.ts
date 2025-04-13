@@ -9,8 +9,8 @@ import { FindAccountCase } from "@useCases/findAccountCase";
 import { TransactionCase } from "@useCases/transactionCase";
 import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
-import { RepositoryPortFind } from "@domain/ports/repository/repositoryPortFind";
-import { RepositoryPortTransaction } from "@domain/ports/repository/repositoryPortTransact";
+import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
+import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
 import { Entity } from "@domain/entities/entity";
 
 export type dependenciesType = {
