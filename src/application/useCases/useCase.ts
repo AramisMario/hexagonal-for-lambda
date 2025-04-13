@@ -9,19 +9,21 @@ import { FindAccountCase } from "@useCases/findAccountCase";
 import { TransactionCase } from "@useCases/transactionCase";
 import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
-import { RepositoryPort } from "@domain/ports/repository/repositoryPort";
+import { RepositoryPortFind } from "@domain/ports/repository/repositoryPortFind";
+import { RepositoryPortTransaction } from "@domain/ports/repository/repositoryPortTransact";
 import { Entity } from "@domain/entities/entity";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
     messageQueue: QueuePort,
-    repository: RepositoryPort
+    repositoryFind: RepositoryPortFind,
+    repositoryTransaction: RepositoryPortTransaction,
 };
 
 export class UseCase implements UseCasePort{
 
     async exec(data: CaseData, dependencies: dependenciesType){
-        const { thirdPartyApi, messageQueue, repository } = dependencies;
+        const { thirdPartyApi, messageQueue, repositoryFind, repositoryTransaction } = dependencies;
 
         try{
 
@@ -29,7 +31,7 @@ export class UseCase implements UseCasePort{
 
             let account: Entity;
             try{
-                account = await findAccount.exec(data.account, {repository});
+                account = await findAccount.exec(data.account, {repositoryFind});
             }catch(error){
                 // log the error here and handle the error
                 throw error;
@@ -42,7 +44,7 @@ export class UseCase implements UseCasePort{
             let transactionResult: DebitedSuccessful;
             try{
                 const transactionCase = new TransactionCase();
-                transactionResult = await transactionCase.exec({account, amount: data.amount},{repository});
+                transactionResult = await transactionCase.exec({account, amount: data.amount},{repositoryTransaction});
             }catch(error){
                 // log the error here and handle the error
                 throw error;
