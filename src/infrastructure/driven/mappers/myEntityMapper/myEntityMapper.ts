@@ -1,5 +1,13 @@
 import { Entity } from "@domain/entities/entity";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
+import { TransactionResultType } from "@drivenRepositories/myEntity/repository/mysqlRepositoryTransact";
+type RecordType = {
+    first: number,
+    second: number,
+    state: string,
+    accountNumber: string
+}
+
 export class MyEntityMapper{
 
     mapToRepository(entity: Entity){
@@ -11,7 +19,7 @@ export class MyEntityMapper{
         }
     }
 
-    mapToEntity(record: any): Entity{
+    mapToEntity(record: RecordType): Entity{
         const props = {
             firstAttribute: record.first,
             secondAttribute: record.second,
@@ -22,10 +30,10 @@ export class MyEntityMapper{
         return new Entity(props);
     }
 
-    mapToModel(record: any): DebitedSuccessful{
+    mapToModel(transactionResult: TransactionResultType): DebitedSuccessful{
         return {
-            debitedAmount: record.debitedAmount,
-            cost: record.cost,
+            debitedAmount: transactionResult.debitedAmount,
+            cost: transactionResult.cost,
         }
     }
 

@@ -6,6 +6,12 @@ import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Entity } from "@domain/entities/entity";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
+
+export type TransactionResultType = {
+    debitedAmount: number,
+    cost: number,
+}
+
 export class EntityMysqlRepositoryTransaction implements RepositoryPortTransaction{
 
 
@@ -20,11 +26,11 @@ export class EntityMysqlRepositoryTransaction implements RepositoryPortTransacti
 
             // auto invoekd function to mock a transaction
             // you could use a logging method here to regist the error code
-            const transactionResult =  await ((account) => {
+            const transactionResult:{ result: TransactionResultType } =  await ((account) => {
                 console.log(`Doing transaction ${transactionType} amount: ${amount} account: ${account}`);
                 return {
                     result:{
-                        debited: 1500,
+                        debitedAmount: 1500,
                         cost: 0,
                     }
                 }
