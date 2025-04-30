@@ -1,18 +1,19 @@
-import { ServiceRepositoryPort } from "@secondaryPorts/serviceRepository/serviceRepositoryPort";
 import { FindAccountCasePort } from "@primaryPorts/useCases/findAccountCasePort";
+import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
+import { Entity } from "@domain/entities/entity";
 export type dependenciesType = {
-    serviceRepository: ServiceRepositoryPort
+    repositoryFind: RepositoryPortFind
 };
 
 
 export class FindAccountCase implements FindAccountCasePort{
 
-    async exec(account: string, dependencies: dependenciesType): Promise<any>{
+    async exec(account: string, dependencies: dependenciesType): Promise<Entity>{
 
-        const { serviceRepository } = dependencies;
+        const { repositoryFind } = dependencies;
 
         try{
-            const entity = await serviceRepository.findAccountById(account);
+            const entity = await repositoryFind.findByID(account);
             return entity;
         }catch(error){
             // handle and log the error

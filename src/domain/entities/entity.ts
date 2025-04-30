@@ -1,3 +1,9 @@
+export type EntityProps = {
+    state: string;
+    firstAttribute: number;
+    secondAttribute: number;
+    accountNumber: string;
+}
 
 export class Entity{
 
@@ -6,7 +12,7 @@ export class Entity{
     private secondAttribute: number;
     private accountNumber: string;
 
-    constructor(props: any){
+    constructor(props: EntityProps){
         this.accountNumber = props.accountNumber;
         this.firstAttribute = props.firstAttribute;
         this.secondAttribute = props.secondAttribute;

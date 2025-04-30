@@ -8,6 +8,7 @@ import { TransactionValidationFail } from "@domainErrors/entityErrors/transactio
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { CaseDataMapper } from "@drivingMappers/dataMapper";
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
+import { CaseData } from "@domain/models/caseData";
 export const eventBridgeAdapter = (useCase: UseCasePort) => async (event:EventBridgeEvent<any,any>,dependencies:dependenciesType) => {
 
     try{
@@ -20,7 +21,7 @@ export const eventBridgeAdapter = (useCase: UseCasePort) => async (event:EventBr
             // use a logger to log the validation
             throw new BadRequestError();
         }
-        const caseData = CaseDataMapper.mapCaseData(requestDTO);
+        const caseData: CaseData = CaseDataMapper.mapCaseData(requestDTO);
 
         await useCase.exec(caseData,dependencies);
     }catch(error){

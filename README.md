@@ -6,8 +6,8 @@ Hexagonal architecture archetype for use in lambdas
     - [Entities](#Entities)
     - [Models](#Models)
     - [Value Objects](#value-objects)
-    - [Types](#Types)
     - [Domain Errors](#domain-errors)
+    - [Repository](#domain-repository)
 - [Application](#Application)
     - [Ports](#Ports)
         - [Primary Ports](#primary-ports)
@@ -41,13 +41,15 @@ Value Objects are classes used to represent data in a more complex way than a pr
 
 https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/domain/valueObjects/address.ts#L16-L40
 
-# Types
-The types folder is not related to hexagonal architecture; it is simply a place to store TypeScript types used in the code.
-
 # Domain Errors
 Domain Errors are classes responsible for mapping the errors that could occur in the domain. These errors are not exceptions but business logic-related errors.
 
 https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/domain/domainErrors/entityErrors/entityNotFound.ts#L1-L10
+
+# Repository
+Domain Repository are the interfaces that we use to model the acces to the data from our domain.
+
+https://github.com/AramisMario/hexagonal-for-lambda/blob/ce6ecaad14dd7caf05f9ac0797ef43e05d652bf2/src/domain/repository/repositoryPortFind.ts#L1-L4
 
 # Application
 The Application is the layer where we define our ports and use cases.
@@ -61,9 +63,9 @@ Primary ports are used to connect with the driving adapters (input adapters) in 
 https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/application/ports/primaryPorts/useCases/useCasePort.ts#L4-L6
 
 # Secondary Ports
-Secondary ports are used to connect with the driven adapters in the infrastructure layer, commonly used to call external services like databases, third-party APIs, and more.
+Secondary ports are used to connect with the driven adapters in the infrastructure layer, commonly used to call external services like third-party APIs, message queues and more.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/application/ports/secondaryPorts/serviceRepository/serviceRepositoryPort.ts#L1-L8
+https://github.com/AramisMario/hexagonal-for-lambda/blob/ce6ecaad14dd7caf05f9ac0797ef43e05d652bf2/src/application/ports/secondaryPorts/thirdPartyApi/thirdPartyApiPort.ts#L1-L9
 
 # Use Cases
 Use cases execute the logic of our application by calling entity methods, external services, and performing their own logic and validations.
