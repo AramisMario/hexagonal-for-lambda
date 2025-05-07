@@ -2,7 +2,6 @@
 import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
 import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/myEntity/repository/errors/repositoryErrors";
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
-import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { Account } from "@domain/entities/account";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
@@ -13,12 +12,6 @@ export type TransactionResultType = {
 }
 
 export class EntityMysqlRepositoryTransaction implements RepositoryPortTransaction{
-
-
-    private mapper: MyEntityMapper;
-    constructor(mapper:MyEntityMapper){
-        this.mapper = mapper;
-    }
 
     async transaction(entity: Account, transactionType: string, amount: number): Promise<DebitedSuccessful> {
 
@@ -34,10 +27,13 @@ export class EntityMysqlRepositoryTransaction implements RepositoryPortTransacti
                         cost: 0,
                     }
                 }
-            })(entity.getAccountNumber());
-    
-            return this.mapper.mapToModel(transactionResult.result);
-        }catch(error){
+            })(entity.accountNumber);
+
+            return {
+                debitedAmount: transactionResult.result.debitedAmount,
+                cost: transactionResult.result.cost,
+            }
+        }catch(error:any){
 
             // you could use a logging method here to regist the error code
 
