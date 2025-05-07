@@ -10,14 +10,14 @@ import { TransactionCase } from "@useCases/transactionCase";
 import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
 import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
-import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
+import { TransactionRepository } from "@domain/repository/repositoryPortTransact";
 import { Account } from "@domain/entities/account";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
     messageQueue: QueuePort,
     repositoryFind: RepositoryPortFind,
-    repositoryTransaction: RepositoryPortTransaction,
+    repositoryTransaction: TransactionRepository,
 };
 
 export class UseCase implements UseCasePort{

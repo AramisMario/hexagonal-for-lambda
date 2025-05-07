@@ -1,10 +1,10 @@
 import { TransactionCasePort } from "@primaryPorts/useCases/transactionCasePort";
 import { Account } from "@domain/entities/account";
 import { TransactionTypes } from "@domain/types/transactions";
-import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
+import { TransactionRepository } from "@domain/repository/repositoryPortTransact";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 export type dependenciesType = {
-    repositoryTransaction: RepositoryPortTransaction
+    repositoryTransaction: TransactionRepository
 };
 
 export type dataType = {
