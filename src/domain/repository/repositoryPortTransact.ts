@@ -1,5 +1,5 @@
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 export interface RepositoryPortTransaction{
-    transaction(account: Entity, transactionType: string, amount: number): Promise<DebitedSuccessful>
+    transaction(account: Account, transactionType: string, amount: number): Promise<DebitedSuccessful>
 }

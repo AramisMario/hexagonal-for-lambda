@@ -1,30 +1,25 @@
 import { EventBridgeEvent } from "aws-lambda";
 import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
 import { dependenciesType } from "@application/useCases/useCase";
-import { BodyMapper } from "@drivingMappers/bodyMapper";
-import { validate } from "class-validator";
+import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
+import { DebitRequestDTO } from "@infrastructure/driving/DTOs/DebitRequestDTO";
+import { DebitResponseDTOType } from "@infrastructure/driving/DTOs/DebitResponseDTO";
+import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
 import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
 import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
-import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
-import { CaseDataMapper } from "@drivingMappers/dataMapper";
-import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
-import { CaseData } from "@domain/models/caseData";
+
 export const eventBridgeAdapter = (useCase: UseCasePort) => async (event:EventBridgeEvent<any,any>,dependencies:dependenciesType) => {
 
     try{
         const body = event.detail.body;
 
-        const requestDTO = BodyMapper.mapToDTO(body);
-        const isValid = (await validate(requestDTO)).length > 0 ? false : true;
-    
-        if(!isValid){
-            // use a logger to log the validation
+        if(!DebitRequestDTO.safeParse(body).success){
+            // log the validation error
             throw new BadRequestError();
         }
-        const caseData: CaseData = CaseDataMapper.mapCaseData(requestDTO);
 
-        await useCase.exec(caseData,dependencies);
-    }catch(error){
+        await useCase.exec(body,dependencies);
+    }catch(error: any){
         switch(error.code){
 
             case BadRequestError.code:

@@ -1,6 +1,6 @@
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 import { repositoryPortUpdate } from "@domain/repository/repositoryPortUpdate";
 export class EntityMysqlRepositoryUpdate implements repositoryPortUpdate{
 
@@ -10,7 +10,7 @@ export class EntityMysqlRepositoryUpdate implements repositoryPortUpdate{
         this.mapper = mapper;
     }
 
-    async update(entity:Entity): Promise<Entity>{
+    async update(entity:Account): Promise<Account>{
         try{
             // make your query
     

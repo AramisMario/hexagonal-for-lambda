@@ -1,3 +1,14 @@
+import { z } from "zod";
+
+const Account = z.object({
+    status: z.string(),
+    avaliableBalance: z.number(),
+    accountNumber: z.string()
+});
+
+export type Account = z.infer<typeof Account>;
+
+/*
 export type EntityProps = {
     state: string;
     firstAttribute: number;
@@ -44,3 +55,5 @@ export class Entity{
 
 
 }
+
+*/

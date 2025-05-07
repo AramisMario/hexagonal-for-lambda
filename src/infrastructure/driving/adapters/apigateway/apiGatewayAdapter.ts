@@ -1,49 +1,36 @@
 import 'module-alias/register';
 import { Utils } from "@utils/utils";
-import { ResponseDTO } from "@infrastructure/driving/DTOs/responseDTO";
-import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { HTTP_RESPONSES } from "@utils/constants";
-import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
-import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
+import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { dependenciesType } from "@application/useCases/useCase";
-import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
-import { BodyMapper } from "@drivingMappers/bodyMapper";
-import { validate } from "class-validator";
+import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
 import { UnexpectedError } from '@domainErrors/generalErrors/unexpectedError';
-import { CaseDataMapper } from '@drivingMappers/dataMapper';
+import { DebitRequestDTO } from '@infrastructure/driving/DTOs/DebitRequestDTO';
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
-import { CaseData } from '@domain/models/caseData';
+import { DebitResponseDTOType } from "@infrastructure/driving/DTOs/DebitResponseDTO";
+import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
+import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
+
 export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatewayProxyEventV2,dependencies:dependenciesType) => {
 
     try{
         const body = JSON.parse(event.body as string);
 
-        const requestDTO = BodyMapper.mapToDTO(body);
-
-        const isValid = (await validate(requestDTO)).length > 0 ? false : true;
-
-        if(!isValid){
+        if(!DebitRequestDTO.safeParse(body).success){
             // log the validation error
             throw new BadRequestError();
         }
 
-        const caseData: CaseData = CaseDataMapper.mapCaseData(requestDTO);
+        const result:DebitResponseDTOType = await useCase.exec(body,dependencies);
 
-        const result = await useCase.exec(caseData,dependencies);
-
-        const responseData = new ResponseDTO(
-            result.debitedAmount,
-            result.cost
-        );
         return Utils.response(
             HTTP_RESPONSES.SUCCESSFUL.httpCode,
             HTTP_RESPONSES.SUCCESSFUL.code,
             HTTP_RESPONSES.SUCCESSFUL.message,
-            responseData
+            result
         );
 
-
-    }catch(error){
+    }catch(error: any){
         switch(error.code){
 
             case BadRequestError.code:

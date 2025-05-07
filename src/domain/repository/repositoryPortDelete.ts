@@ -1,5 +1,5 @@
-import { Entity } from "@domain/entities/entity"
+import { Account } from "@domain/entities/account"
 export interface RepositoryPortDelete{
-    delete(data: Entity): Promise<boolean>
+    delete(data: Account): Promise<boolean>
 }
 

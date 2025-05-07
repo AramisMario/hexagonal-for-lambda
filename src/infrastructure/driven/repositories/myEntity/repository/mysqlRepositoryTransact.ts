@@ -3,7 +3,7 @@ import { TransactionValidationFail } from "@domainErrors/entityErrors/transactio
 import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/myEntity/repository/errors/repositoryErrors";
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
 
@@ -20,7 +20,7 @@ export class EntityMysqlRepositoryTransaction implements RepositoryPortTransacti
         this.mapper = mapper;
     }
 
-    async transaction(entity: Entity, transactionType: string, amount: number): Promise<DebitedSuccessful> {
+    async transaction(entity: Account, transactionType: string, amount: number): Promise<DebitedSuccessful> {
 
         try{
 

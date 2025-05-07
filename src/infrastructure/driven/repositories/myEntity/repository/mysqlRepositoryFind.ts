@@ -1,6 +1,6 @@
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 
 import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
 export class EntityMysqlRepositoryFind implements RepositoryPortFind{
@@ -11,7 +11,7 @@ export class EntityMysqlRepositoryFind implements RepositoryPortFind{
         this.mapper = mapper;
     }
 
-    async findByID(id: number): Promise<Entity>{
+    async findByID(id: number): Promise<Account>{
         try{
             // make your query
 

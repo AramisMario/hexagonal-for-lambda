@@ -1,5 +1,5 @@
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 export interface repositoryPortUpdate{
-    update(data:Entity): Promise<Entity>
+    update(data:Account): Promise<Account>
 }
 

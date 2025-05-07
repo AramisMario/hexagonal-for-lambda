@@ -1,8 +1,8 @@
 import { RepositoryPortCreate } from "@domain/repository/repositoryPortCreate";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
-import { Entity } from "@domain/entities/entity";
-import { EntityProps } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
+import { EntityProps } from "@domain/entities/account";
 export class EntityMysqlRepositoryCreate implements RepositoryPortCreate{
 
 
@@ -12,7 +12,7 @@ export class EntityMysqlRepositoryCreate implements RepositoryPortCreate{
     }
     
 
-    async create(entityProps:EntityProps): Promise<Entity>{
+    async create(entityProps:EntityProps): Promise<Account>{
 
         try{
 

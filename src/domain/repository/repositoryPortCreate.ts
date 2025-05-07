@@ -1,6 +1,6 @@
-import { Entity } from "@domain/entities/entity"
-import { EntityProps } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account"
+import { EntityProps } from "@domain/entities/account";
 export interface RepositoryPortCreate{
-    create(entityProps:EntityProps): Promise<Entity>
+    create(entityProps:EntityProps): Promise<Account>
 
 }

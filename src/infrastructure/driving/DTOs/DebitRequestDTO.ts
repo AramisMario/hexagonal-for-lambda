@@ -1,4 +1,15 @@
-import { Length, Min, Max, IsNumber } from "class-validator";
+//import { Length, Min, Max, IsNumber } from "class-validator";
+import { z } from "zod";
+
+export const DebitRequestDTO = z.object({
+    account: z.string().length(10,{ message: "Invalid length" }),
+    amount: z.number().min(1,{message: "amount under the minimum"}).max(25000,{message: "amount above the maximum"})
+}).required({
+    account: true,
+    amount: true
+});
+
+/*
 export class RequestDTO{
     
     @Length(10,10, { message: "Numero no valido"})
@@ -13,5 +24,5 @@ export class RequestDTO{
         this.account = account;
         this.amount = amount;
     }
-
 }
+*/

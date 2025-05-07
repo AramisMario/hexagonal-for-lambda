@@ -1,5 +1,5 @@
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 
 export interface FindAccountCasePort{
-    exec(account: string, dependencies): Promise<Entity>
+    exec(account: string, dependencies): Promise<Account>
 }

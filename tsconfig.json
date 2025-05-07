@@ -27,7 +27,8 @@
             "@dtos/*": ["./src/infrastructure/driving/DTOs/*"],
             "@repositoryErrors/*": ["./src/infrastructure/driven/repositories/myEntity/repository/errors/*"],
             "@thirdPartyErrors/*": ["./src/infrastructure/driven/adapters/thirdPartyApi/errors/*"]
-        }
+        },
+        "strict": true
     },
     "ts-node": {
         "require": ["tsconfig-paths/register"]

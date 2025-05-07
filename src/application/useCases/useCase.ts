@@ -11,7 +11,7 @@ import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
 import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
 import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
@@ -29,7 +29,7 @@ export class UseCase implements UseCasePort{
 
             const findAccount:FindAccountCasePort = new FindAccountCase();
 
-            let account: Entity;
+            let account: Account;
             try{
                 account = await findAccount.exec(data.account, {repositoryFind});
             }catch(error){

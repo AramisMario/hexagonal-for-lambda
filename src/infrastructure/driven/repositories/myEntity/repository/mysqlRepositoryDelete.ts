@@ -1,6 +1,6 @@
 import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
 import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
-import { Entity } from "@domain/entities/entity";
+import { Account } from "@domain/entities/account";
 import { RepositoryPortDelete } from "@domain/repository/repositoryPortDelete";
 export class EntityMysqlRepositoryDelete implements RepositoryPortDelete{
 
@@ -11,7 +11,7 @@ export class EntityMysqlRepositoryDelete implements RepositoryPortDelete{
         this.mapper = mapper;
     }
     */
-    async delete(entity: Entity): Promise<boolean>{
+    async delete(entity: Account): Promise<boolean>{
         try{
             // make your query
             const deletedRecord = {
