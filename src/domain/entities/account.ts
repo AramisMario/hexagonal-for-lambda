@@ -1,10 +1,13 @@
 import { z } from "zod";
 
 const Account = z.object({
+    id: z.string(),
     status: z.string(),
     avaliableBalance: z.number(),
-    accountNumber: z.string()
-});
+    accountNumber: z.string(),
+}).partial({
+    id: true
+})
 
 export type Account = z.infer<typeof Account>;
 

@@ -1,4 +1,6 @@
 import { Account } from "@domain/entities/account";
+import { DocumentClient,TransactWriteItemsInput } from "aws-sdk/clients/dynamodb";
+import { DynamoDB } from "aws-sdk";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { AccountRepository } from "@domain/repository/accountRepository";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
@@ -8,13 +10,26 @@ import { DATABASE_ERROR_CODES } from "@drivenRepositories/account/repository/err
 
 export class AccountDynamoRepository implements AccountRepository{
 
+    private dynamo: DocumentClient;
+
+    constructor(){
+        this.dynamo = new DynamoDB.DocumentClient();
+    }
 
     async create(entity:Account): Promise<Account>{
     
         try{
-    
-            // make your create and select query
-    
+
+            const params = {
+                TableName: "",
+                Item: {
+
+                }
+              };
+  
+            await this.dynamo.put(params).promise();
+            
+            return entity;
 
         }catch(error){
             // you could use a logging method here to regist the error code
@@ -27,6 +42,10 @@ export class AccountDynamoRepository implements AccountRepository{
         try{
             // make your query
 
+            const deletedRecord = {
+                deleted: true
+            }
+            return deletedRecord.deleted;
 
         }catch(error){
             // handle database errors
@@ -40,6 +59,26 @@ export class AccountDynamoRepository implements AccountRepository{
         try{
             // make your query
 
+            const params:{
+                TableName:string,
+                Key:{
+                    id: string
+                }
+            } = {
+                TableName: "",
+                Key:{
+                    id: id.toString()
+                }
+            }
+
+            const result = await this.dynamo.get(params).promise();
+
+            return {
+                status: result.Item?.status,
+                avaliableBalance: result.Item?.avaliableBalance,
+                accountNumber: result.Item?.accountNumber
+            }
+
         }catch(error){
             // you could use a logging method here to regist the error code
             throw new EntityNotFoundError();
@@ -49,7 +88,17 @@ export class AccountDynamoRepository implements AccountRepository{
     async transaction(entity: Account, transactionType: string, amount: number): Promise<DebitedSuccessful> {
     
         try{
+            const params = {
 
+            } as TransactWriteItemsInput;
+
+            await this.dynamo.transactWrite(params);
+
+            return {
+                debitedAmount: amount,
+                cost: 0
+            }
+            
         }catch(error:any){
         
             // you could use a logging method here to regist the error code
@@ -66,8 +115,25 @@ export class AccountDynamoRepository implements AccountRepository{
 
     async update(entity:Account): Promise<Account>{
         try{
-            // make your query
+            const params = {
 
+                TableName: "",
+                Key:{
+                    id: entity.id?.toString()
+                },
+                UpdateExpression: "",
+                ExpressionAttributeNames: {},
+                ExpressionAttributeValues: {},
+                ReturnValues: 'ALL_NEW' 
+            }
+
+            const result = await this.dynamo.update(params).promise();
+            return {
+                id: entity.id,
+                status: result.Attributes?.status,
+                avaliableBalance: result.Attributes?.avaliableBalance,
+                accountNumber: result.Attributes?.accountNumber
+            }
         }catch(error){
             // handle database errors
             // you could use a logging method here to regist the error code

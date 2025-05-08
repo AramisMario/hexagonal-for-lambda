@@ -7,7 +7,7 @@ import { TransactionValidationFail } from "@domainErrors/entityErrors/transactio
 import { DATABASE_ERROR_CODES } from "@drivenRepositories/account/repository/errors/repositoryErrors";
 
 export class AccountMysqlRepository implements AccountRepository{
-
+    
 
     async create(entity:Account): Promise<Account>{
     
