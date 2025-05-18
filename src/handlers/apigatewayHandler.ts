@@ -1,5 +1,5 @@
 import 'module-alias/register';
-import { UseCase, dependenciesType } from "@useCases/useCase";
+import { UseCase, dependenciesType } from "@application/useCases/accountDebitCase";
 import { SqsQueue } from "@drivenAdapters/sqsQueue/sqsQueue";
 import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
 import { ThridPartyApiAdapter } from "@drivenAdapters/thirdPartyApi/thirdPartyApi";

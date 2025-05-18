@@ -1,4 +1,3 @@
-import { CaseData } from "@models/caseData";
 import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
 import { DebitedSuccessful } from "@models/debitedSucess";
 import { ThirdPartyApiPort } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
@@ -9,21 +8,20 @@ import { FindAccountCase } from "@useCases/findAccountCase";
 import { TransactionCase } from "@useCases/transactionCase";
 import { MessageCase } from "@useCases/messageCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
-import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
-import { TransactionRepository } from "@domain/repository/repositoryPortTransact";
-import { Account } from "@domain/entities/account";
+import { AccountRepository } from "@domain/repository/accountRepository";
+import { Account } from "@domain/models/account";
+import { DebitAccount } from "@models/debitAccount";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
     messageQueue: QueuePort,
-    repositoryFind: RepositoryPortFind,
-    repositoryTransaction: TransactionRepository,
+    repository: AccountRepository,
 };
 
-export class UseCase implements UseCasePort{
+export class accountDebitCase implements UseCasePort{
 
-    async exec(data: CaseData, dependencies: dependenciesType){
-        const { thirdPartyApi, messageQueue, repositoryFind, repositoryTransaction } = dependencies;
+    async exec(data: DebitAccount, dependencies: dependenciesType){
+        const { thirdPartyApi, messageQueue, repository } = dependencies;
 
         try{
 
@@ -31,20 +29,20 @@ export class UseCase implements UseCasePort{
 
             let account: Account;
             try{
-                account = await findAccount.exec(data.account, {repositoryFind});
+                account = await findAccount.exec(data.account, {repository});
             }catch(error){
                 // log the error here and handle the error
                 throw error;
             }
 
-            if(!account.isAllowed()){
+            if(account.status !== "A"){
                 throw new EntityPreconditionFailed();
             }
 
             let transactionResult: DebitedSuccessful;
             try{
                 const transactionCase = new TransactionCase();
-                transactionResult = await transactionCase.exec({account, amount: data.amount},{repositoryTransaction});
+                transactionResult = await transactionCase.exec({account, amount: data.amount},{repository});
             }catch(error){
                 // log the error here and handle the error
                 throw error;

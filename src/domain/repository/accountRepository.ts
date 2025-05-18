@@ -1,4 +1,4 @@
-import { Account } from "@domain/entities/account";
+import { Account } from "@domain/models/account";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 export interface AccountRepository<T = unknown>{
     create(entityProps:Account): Promise<Account>

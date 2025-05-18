@@ -1,13 +1,14 @@
 //import { Length, Min, Max, IsNumber } from "class-validator";
 import { z } from "zod";
+import { DebitAccountSchema } from "@domain/models/debitAccount";
 
-export const DebitRequestDTO = z.object({
-    account: z.string().length(10,{ message: "Invalid length" }),
-    amount: z.number().min(1,{message: "amount under the minimum"}).max(25000,{message: "amount above the maximum"})
-}).required({
-    account: true,
-    amount: true
+const idUser = z.object({
+    idUser: z.number()
 });
+
+export const DebitRequestDTO = DebitAccountSchema.merge(idUser).required({
+    account: true,
+    amount: true});
 
 /*
 export class RequestDTO{

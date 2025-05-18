@@ -1,6 +1,6 @@
 import { SQSEvent } from "aws-lambda";
 import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
-import { dependenciesType } from "@application/useCases/useCase";
+import { dependenciesType } from "@application/useCases/accountDebitCase";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
 import { DebitRequestDTO } from "@infrastructure/driving/DTOs/DebitRequestDTO";
 import { DebitResponseDTOType } from "@infrastructure/driving/DTOs/DebitResponseDTO";

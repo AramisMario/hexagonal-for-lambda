@@ -1,8 +1,9 @@
+import { Account } from "@domain/models/account";
+import { AccountRepository } from "@domain/repository/accountRepository";
 import { FindAccountCasePort } from "@primaryPorts/useCases/findAccountCasePort";
-import { RepositoryPortFind } from "@domain/repository/repositoryPortFind";
-import { Account } from "@domain/entities/account";
+
 export type dependenciesType = {
-    repositoryFind: RepositoryPortFind
+    repository: AccountRepository
 };
 
 
@@ -10,17 +11,16 @@ export class FindAccountCase implements FindAccountCasePort{
 
     async exec(account: string, dependencies: dependenciesType): Promise<Account>{
 
-        const { repositoryFind } = dependencies;
+        const { repository } = dependencies;
 
         try{
-            const entity = await repositoryFind.findByID(account);
+            const entity = await repository.findByID(account);
             return entity;
         }catch(error){
             // handle and log the error
             throw error;
         }
 
-        
     }
 
 }

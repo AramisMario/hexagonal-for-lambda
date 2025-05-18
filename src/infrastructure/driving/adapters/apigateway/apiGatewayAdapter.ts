@@ -2,7 +2,7 @@ import 'module-alias/register';
 import { Utils } from "@utils/utils";
 import { HTTP_RESPONSES } from "@utils/constants";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
-import { dependenciesType } from "@application/useCases/useCase";
+import { dependenciesType } from "@application/useCases/accountDebitCase";
 import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
 import { UnexpectedError } from '@domainErrors/generalErrors/unexpectedError';
 import { DebitRequestDTO } from '@infrastructure/driving/DTOs/DebitRequestDTO';
@@ -18,6 +18,7 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
 
         if(!DebitRequestDTO.safeParse(body).success){
             // log the validation error
+            
             throw new BadRequestError();
         }
 

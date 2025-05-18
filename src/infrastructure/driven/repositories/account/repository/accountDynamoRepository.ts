@@ -1,4 +1,4 @@
-import { Account } from "@domain/entities/account";
+import { Account } from "@domain/models/account";
 import { DocumentClient,TransactWriteItemsInput } from "aws-sdk/clients/dynamodb";
 import { DynamoDB } from "aws-sdk";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";

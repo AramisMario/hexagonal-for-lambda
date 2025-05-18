@@ -1,4 +1,4 @@
-import { Account } from "@domain/entities/account";
+import { Account } from "@domain/models/account";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { AccountRepository } from "@domain/repository/accountRepository";
 import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
@@ -8,6 +8,9 @@ import { DATABASE_ERROR_CODES } from "@drivenRepositories/account/repository/err
 
 export class AccountMysqlRepository implements AccountRepository{
     
+    constructor(mysqlConnection: object){
+
+    }
 
     async create(entity:Account): Promise<Account>{
     

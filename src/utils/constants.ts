@@ -1,5 +1,5 @@
-export const THIRD_PARTY_URL = "url";
-export const QUEUE_URL = "queueURL";
+export const THIRD_PARTY_URL = process.env.QUEUE_URL ||  "url";
+export const QUEUE_URL = process.env.QUEUE_URL ||"queueURL";
 
 
 export const HTTP_RESPONSES = {
