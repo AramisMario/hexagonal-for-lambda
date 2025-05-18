@@ -1,7 +1,6 @@
 import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
-import { ErrorMapper } from "@infrastructure/driven/mappers/errorMapperInterface/errorMapperInterface";
 import { THIRD_PARTY_ERRORS } from "@infrastructure/driven/adapters/thirdPartyApi/errors/thirPartyErrors";
-export class ThirdPartyApiErrorMapper implements ErrorMapper{
+export class ThirdPartyApiErrorMapper{
 
     private errorCode: string = '';
 
