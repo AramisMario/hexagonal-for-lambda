@@ -7,7 +7,7 @@ import { DebitRequestDTO } from '@infrastructure/driving/DTOs/DebitRequestDTO';
 import { UseCasePort } from "@application/ports/primaryPorts/useCases/useCasePort";
 import { UnexpectedError } from '@domain/domainErrors/generalErrors/unexpectedError';
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
-import { DebitResponseDTOType } from "@infrastructure/driving/DTOs/DebitResponseDTO";
+import { DebitResponseDTOtype } from "@infrastructure/driving/DTOs/DebitResponseDTO";
 import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";
 import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
 
@@ -22,7 +22,7 @@ export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatew
             throw new BadRequestError();
         }
 
-        const result:DebitResponseDTOType = await useCase.exec(body,dependencies);
+        const result:DebitResponseDTOtype = await useCase.exec(body,dependencies);
 
         return Utils.response(
             HTTP_RESPONSES.SUCCESSFUL.httpCode,
