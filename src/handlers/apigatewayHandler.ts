@@ -1,24 +1,20 @@
 import 'module-alias/register';
-import { UseCase, dependenciesType } from "@application/useCases/accountDebitCase";
-import { SqsQueue } from "@drivenAdapters/sqsQueue/sqsQueue";
-import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
-import { ThridPartyApiAdapter } from "@drivenAdapters/thirdPartyApi/thirdPartyApi";
-import { EntityMysqlRepositoryFind } from '@drivenRepositories/account/repository/mysqlRepositoryFind';
-import { EntityMysqlRepositoryTransaction } from '@drivenRepositories/account/repository/mysqlRepositoryTransact';
-import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
-import { apigatewayAdapter } from "@drivingAdapters/apigateway/apiGatewayAdapter";
-import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
+import { SqsQueue } from "@infrastructure/driven/adapters/sqsQueue/sqsQueue";
+import { accountDebitCase, dependenciesType } from "@application/useCases/accountDebitCase";
+import { apigatewayAdapter } from '@infrastructure/driving/adapters/apigateway/apiGatewayAdapter';
+import { ThridPartyApiAdapter } from "@infrastructure/driven/adapters/thirdPartyApi/thirdPartyApi";
+import { AccountMysqlRepository } from '@infrastructure/driven/repositories/account/repository/accountMysqlRepository';
+import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
 
-const entityMapper = new MyEntityMapper();
 const dependencies: dependenciesType = {
     thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
     messageQueue: new SqsQueue(QUEUE_URL),
-    repositoryFind: new EntityMysqlRepositoryFind(entityMapper),
-    repositoryTransaction: new EntityMysqlRepositoryTransaction(entityMapper),
+    repository: new AccountMysqlRepository()
 }
 
-const useCase = new UseCase();
+const useCase = new accountDebitCase();
 
 export const handler = async (event:APIGatewayProxyEventV2) => {
 

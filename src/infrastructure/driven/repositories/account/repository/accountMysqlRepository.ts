@@ -8,7 +8,7 @@ import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/accoun
 
 export class AccountMysqlRepository implements AccountRepository{
     
-    constructor(mysqlConnection: object){
+    constructor(){
 
     }
 
