@@ -1,8 +1,9 @@
-import { TransactionCasePort } from "@primaryPorts/useCases/transactionCasePort";
 import { Account } from "@domain/models/account";
-import { TransactionTypes } from "@domain/types/transactions";
-import { AccountRepository } from "@domain/repository/accountRepository";
+import { TRANSACTION_TYPES } from "@utils/constants";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
+import { AccountRepository } from "@domain/repository/accountRepository";
+import { TransactionCasePort } from "@primaryPorts/useCases/transactionCasePort";
+
 export type dependenciesType = {
     repository: AccountRepository
 };
@@ -21,7 +22,7 @@ export class TransactionCase implements TransactionCasePort{
         const { account, amount } = data;
 
         try{
-            return await repository.transaction(account, TransactionTypes.DEBIT, amount);
+            return await repository.transaction(account, TRANSACTION_TYPES.DEBIT, amount);
         }catch(error){
             // handle and log the error
             throw error;
