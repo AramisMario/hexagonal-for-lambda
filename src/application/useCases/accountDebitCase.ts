@@ -1,16 +1,16 @@
-import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
-import { DebitedSuccessful } from "@models/debitedSucess";
-import { ThirdPartyApiPort } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
-import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
-import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
-import { FindAccountCasePort } from "@primaryPorts/useCases/findAccountCasePort";
-import { FindAccountCase } from "@useCases/findAccountCase";
-import { TransactionCase } from "@useCases/transactionCase";
-import { MessageCase } from "@useCases/messageCase";
-import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
-import { AccountRepository } from "@domain/repository/accountRepository";
 import { Account } from "@domain/models/account";
 import { DebitAccount } from "@models/debitAccount";
+import { MessageCase } from "@useCases/messageCase";
+import { DebitedSuccessful } from "@models/debitedSucess";
+import { FindAccountCase } from "@useCases/findAccountCase";
+import { TransactionCase } from "@useCases/transactionCase";
+import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
+import { AccountRepository } from "@domain/repository/accountRepository";
+import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
+import { UseCasePort } from "@application/ports/primaryPorts/useCases/useCasePort";
+import { FindAccountCasePort } from "@application/ports/primaryPorts/useCases/findAccountCasePort";
+import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";
+import { ThirdPartyApiPort } from "@application/ports/secondaryPorts/thirdPartyApi/thirdPartyApiPort";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,

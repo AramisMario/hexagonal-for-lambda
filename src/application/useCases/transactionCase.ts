@@ -2,7 +2,7 @@ import { Account } from "@domain/models/account";
 import { TRANSACTION_TYPES } from "@utils/constants";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { AccountRepository } from "@domain/repository/accountRepository";
-import { TransactionCasePort } from "@primaryPorts/useCases/transactionCasePort";
+import { TransactionCasePort } from "@application/ports/primaryPorts/useCases/transactionCasePort";
 
 export type dependenciesType = {
     repository: AccountRepository

@@ -1,6 +1,6 @@
 import { Account } from "@domain/models/account";
 import { AccountRepository } from "@domain/repository/accountRepository";
-import { FindAccountCasePort } from "@primaryPorts/useCases/findAccountCasePort";
+import { FindAccountCasePort } from "@application/ports/primaryPorts/useCases/findAccountCasePort";
 
 export type dependenciesType = {
     repository: AccountRepository

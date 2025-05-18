@@ -1,10 +1,10 @@
 import { Account } from "@domain/models/account";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
 import { AccountRepository } from "@domain/repository/accountRepository";
-import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
-import { EntityNotFoundError } from "@domainErrors/entityErrors/entityNotFound";
-import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
-import { DATABASE_ERROR_CODES } from "@drivenRepositories/account/repository/errors/repositoryErrors";
+import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
+import { EntityNotFoundError } from "@domain/domainErrors/entityErrors/entityNotFound";
+import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
+import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/account/repository/errors/repositoryErrors";
 
 export class AccountMysqlRepository implements AccountRepository{
     
