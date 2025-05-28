@@ -7,11 +7,13 @@ import { apigatewayAdapter } from '@infrastructure/driving/adapters/apigateway/a
 import { ThridPartyApiAdapter } from "@infrastructure/driven/adapters/thirdPartyApi/thirdPartyApi";
 import { AccountMysqlRepository } from '@infrastructure/driven/repositories/account/repository/accountMysqlRepository';
 import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import mySqlConnection from "@infrastructure/driven/database/mysqlConnection";
+
 
 const dependencies: dependenciesType = {
     thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
     messageQueue: new SqsQueue(QUEUE_URL),
-    repository: new AccountMysqlRepository()
+    repository: new AccountMysqlRepository(mySqlConnection)
 }
 
 const useCase = new accountDebitCase();

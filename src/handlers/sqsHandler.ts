@@ -8,6 +8,7 @@ import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { APIGatewayProxyEventV2, EventBridgeEvent, SQSEvent } from "aws-lambda";
 import { sqsAdapter } from "@drivingAdapters/sqs/sqsAdapter";
 import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import mySqlConnection from "@infrastructure/driven/database/mysqlConnection";
 
 const entityMapper = new MyEntityMapper();
 const dependencies: dependenciesType = {

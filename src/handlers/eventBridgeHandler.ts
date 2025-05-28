@@ -8,6 +8,7 @@ import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { EventBridgeEvent } from "aws-lambda";
 import { eventBridgeAdapter } from "@drivingAdapters/eventBridge/eventBridgeAdapter";
 import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import mySqlConnection from "@infrastructure/driven/database/mysqlConnection";
 
 const entityMapper = new MyEntityMapper();
 const dependencies: dependenciesType = {

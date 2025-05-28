@@ -5,32 +5,26 @@ import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedEr
 import { EntityNotFoundError } from "@domain/domainErrors/entityErrors/entityNotFound";
 import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
 import { DATABASE_ERROR_CODES } from "@infrastructure/driven/repositories/account/repository/errors/repositoryErrors";
+import { MySQLConnectionInterface } from "@infrastructure/driven/database/mysqlConnectionInterface";
 
 export class AccountMysqlRepository implements AccountRepository{
     
-    constructor(){
-
+    private mysqlConnection: MySQLConnectionInterface;
+    constructor(mysqlConnection: MySQLConnectionInterface){
+        this.mysqlConnection = mysqlConnection;
     }
 
-    async create(entity:Account): Promise<Account>{
+    async create(account:Account): Promise<Account>{
     
         try{
     
             // make your create and select query
-    
-            const record = {
-                data:{
-                    status: 'ACTIVE',
-                    avaliableBalance: 654245,
-                    accountNumber: '123456789'
-                }
+            const response = await this.mysqlConnection.execute("YOUR QUERY");
 
-            }
-    
             return {
-                status: record.data.status,
-                avaliableBalance: record.data.avaliableBalance,
-                accountNumber: record.data.accountNumber
+                status: response.rows[0].status,
+                avaliableBalance: response.rows[0].avaliableBalance,
+                accountNumber: response.rows[0].accountNumber
             }
 
         }catch(error){
@@ -43,15 +37,19 @@ export class AccountMysqlRepository implements AccountRepository{
     async delete(entity: Account): Promise<boolean>{
         try{
             // make your query
-            const deletedRecord = {
-                deleted: true
+
+            const response = await this.mysqlConnection.execute("YOUR DELETE QUERY");
+
+            if(response.affectedRows > 0){
+                return true;
             }
-            return deletedRecord.deleted;
+
+            return false;
 
         }catch(error){
             // handle database errors
             // you could use a logging method here to regist the error code
-            throw new EntityNotFoundError();
+            throw new UnexpectedError();
         }
     }
 
@@ -59,20 +57,12 @@ export class AccountMysqlRepository implements AccountRepository{
     async findByID(id: number): Promise<Account>{
         try{
             // make your query
-
-            const record = {
-                data:{
-                    status: 'ACTIVE',
-                    avaliableBalance: 654245,
-                    accountNumber: '123456789'
-                }
-
-            }
+            const response = await this.mysqlConnection.execute("YOUR DELETE QUERY");
 
             return {
-                status: record.data.status,
-                avaliableBalance: record.data.avaliableBalance,
-                accountNumber: record.data.accountNumber
+                status: response.rows[0].status,
+                avaliableBalance: response.rows[0].avaliableBalance,
+                accountNumber: response.rows[0].accountNumber
             }
 
         }catch(error){
@@ -82,25 +72,16 @@ export class AccountMysqlRepository implements AccountRepository{
     }
 
     async transaction(entity: Account, transactionType: string, amount: number): Promise<DebitedSuccessful> {
-    
+
         try{
 
-            // auto invoekd function to mock a transaction
-            // you could use a logging method here to regist the error code
-            const transactionResult:{ result: { debitedAmount: number, cost: number } } = await ((account) => {
-                console.log(`Doing transaction ${transactionType} amount: ${amount} account: ${account}`);
-                return {
-                    result:{
-                        debitedAmount: 1500,
-                        cost: 0,
-                    }
-                }
-            })(entity.accountNumber);
-    
+            const response = await this.mysqlConnection.execute("CALL TRANSACTION(?,?,?)",[transactionType, entity.accountNumber, amount])
+
             return {
-                debitedAmount: transactionResult.result.debitedAmount,
-                cost: transactionResult.result.cost,
+                debitedAmount: response[0].debitedAmount,
+                cost: response[0].cost,
             }
+
         }catch(error:any){
         
             // you could use a logging method here to regist the error code
@@ -119,19 +100,14 @@ export class AccountMysqlRepository implements AccountRepository{
         try{
             // make your query
 
-            const record = {
-                data:{
-                    status: 'ACTIVE',
-                    avaliableBalance: 654245,
-                    accountNumber: '123456789'
-                }
+            await this.mysqlConnection.execute("UPDATE QUERY",[entity.id]);
 
-            }
+            const updatedRecord = await this.mysqlConnection.execute("QUERY",[entity.id]);
 
             return {
-                status: record.data.status,
-                avaliableBalance: record.data.avaliableBalance,
-                accountNumber: record.data.accountNumber
+                status: updatedRecord.rows[0].status,
+                avaliableBalance: updatedRecord.rows[0].avaliableBalance,
+                accountNumber: updatedRecord.rows[0].accountNumber
             }
 
         }catch(error){
