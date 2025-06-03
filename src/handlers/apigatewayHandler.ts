@@ -5,9 +5,9 @@ import { SqsQueue } from "@infrastructure/driven/adapters/sqsQueue/sqsQueue";
 import { accountDebitCase, dependenciesType } from "@application/useCases/accountDebitCase";
 import { apigatewayAdapter } from '@infrastructure/driving/adapters/apigateway/apiGatewayAdapter';
 import { ThridPartyApiAdapter } from "@infrastructure/driven/adapters/thirdPartyApi/thirdPartyApi";
-import { AccountMysqlRepository } from '@infrastructure/driven/repositories/account/repository/accountMysqlRepository';
+import { AccountMysqlRepository } from '@infrastructure/driven/repositories/account/accountMysqlRepository';
 import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
-import mySqlConnection from "@infrastructure/driven/database/mysqlConnection";
+import mySqlConnection from "@infrastructure/driven/database/mysql/mysqlConnection";
 
 
 const dependencies: dependenciesType = {

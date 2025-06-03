@@ -1,5 +1,6 @@
 import  mysql from 'mysql2/promise';
-class MySQLConnection{
+import { MySQLConnectionInterface } from './mysqlConnectionInterface';
+class MySQLConnection implements MySQLConnectionInterface{
 
     private pool: mysql.Connection | null = null;
 
