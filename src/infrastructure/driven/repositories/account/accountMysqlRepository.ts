@@ -4,7 +4,7 @@ import { AccountRepository } from "@domain/repository/accountRepository";
 import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
 import { EntityNotFoundError } from "@domain/domainErrors/entityErrors/entityNotFound";
 import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
-import { DATABASE_ERROR_CODES } from "@infrastructure/driven/database/mysql/errors/repositoryErrors";
+import { DATABASE_ERROR_CODES } from "@infrastructure/driven/database/mysql/errors/mysqlErrors";
 import { MySQLConnectionInterface } from "@infrastructure/driven/database/mysql/mysqlConnectionInterface";
 
 export class AccountMysqlRepository implements AccountRepository{
