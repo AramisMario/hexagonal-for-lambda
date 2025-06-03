@@ -1,4 +1,4 @@
-import { Account } from "@domain/models/account";
+import { Account, AccountStatusSchema, AllowedStatusSchema } from "@domain/models/account";
 import { DebitAccount } from "@models/debitAccount";
 import { MessageCase } from "@useCases/messageCase";
 import { DebitedSuccessful } from "@models/debitedSucess";
@@ -35,7 +35,7 @@ export class accountDebitCase implements UseCasePort{
                 throw error;
             }
 
-            if(account.status !== "A"){
+            if(!AllowedStatusSchema.safeParse(account.status)){
                 throw new EntityPreconditionFailed();
             }
 
