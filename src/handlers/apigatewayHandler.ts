@@ -9,6 +9,7 @@ import { AccountMysqlRepository } from '@infrastructure/driven/repositories/acco
 import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
 import mySqlConnection from "@infrastructure/driven/database/mysql/mysqlConnection";
 
+mySqlConnection.createPool();
 
 const dependencies: dependenciesType = {
     thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),

@@ -8,6 +8,8 @@ import { eventBridgeAdapter } from "@infrastructure/driving/adapters/eventBridge
 import { AccountMysqlRepository } from "@infrastructure/driven/repositories/account/accountMysqlRepository";
 import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
 
+mySqlConnection.createPool();
+
 const dependencies: dependenciesType = {
     thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
     messageQueue: new SqsQueue(QUEUE_URL),
