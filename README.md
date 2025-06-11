@@ -3,7 +3,6 @@ Hexagonal architecture archetype for use in lambdas
 
 ## Table of Contents
 - [Domain](#Domain)
-    - [Entities](#Entities)
     - [Models](#Models)
     - [Value Objects](#value-objects)
     - [Domain Errors](#domain-errors)
@@ -16,23 +15,16 @@ Hexagonal architecture archetype for use in lambdas
 - [Infrastructure](#Infrastructure)
     - [Driven](#Driven)
         - [Driven Adapters](#driven-adapters)
-        - [Driven Mappers](#driven-mappers)
         - [Repositories](#Repositories)
     - [Driving](#Driving)
         - [Driving Adapters](#driving-adapters)
         - [DTO](#DTO)
-        - [Driving Mappers](#driving-mappers)
 
 # Domain
 The Domain is the core of the service. It contains the business logic and should not change unless the business requirements change.
 
-# Entities
-Entities are classes that represent the business objects and their rules. An instantiated Entity could represent a record in the database or not.
-
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/domain/entities/entity.ts#L1-L40
-
 # Models
-There are many different approaches to define what a model is, but in this case, models are interfaces used to describe important elements of the core that are not entities, such as the core's response or the data required by the use case.
+Models are interfaces that represent the business objects with which our core works.
 
 https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/domain/models/debitedSucess.ts#L1-L4
 
@@ -83,11 +75,6 @@ Driven Adapters are implementations of the application's secondary ports. We use
 
 https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/infrastructure/driven/adapters/thirdPartyApi/thirdPartyApi.ts#L1-L24
 
-# Driven Mappers
-A mapper is a class that takes an object in one format and transforms it into another format needed by any layer or component. In the driven mapper, the class can transform an entity into a plain object needed by the repository and vice versa.
-
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/infrastructure/driven/mappers/myEntityMapper/myEntityMapper.ts#L1-L24
-
 # Repositories
 A repository is a class responsible for communication with the database. Here we perform our queries!
 
@@ -103,6 +90,3 @@ https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caa
 A DTO (Data Transfer Object) is like a contract that specifies the properties a request object must have to be valid for our service. Moreover, it defines the object the client can expect as a response.
 
 https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/infrastructure/driving/DTOs/requestDTO.ts#L1-L17
-
-# Driving Mappers
-This mapper takes the data that comes from the entry points of the software and transforms it into the format needed for the Application layer.
