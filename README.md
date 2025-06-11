@@ -89,4 +89,4 @@ https://github.com/AramisMario/hexagonal-for-lambda/blob/7805d97ba11a10716e78d0e
 # DTO
 A DTO (Data Transfer Object) is like a contract that specifies the properties a request object must have to be valid for our service. Moreover, it defines the object the client can expect as a response.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/7805d97ba11a10716e78d0eafdef1e632d506d08/src/infrastructure/driving/DTOs/DebitResponseDTO.ts#L1-L16
+https://github.com/AramisMario/hexagonal-for-lambda/blob/06987a6df5d56235afeb24b20bddf42e3009ae88/src/infrastructure/driving/DTOs/DebitResponseDTO.ts#L1-L6
