@@ -1,23 +1,22 @@
-import { UseCase, dependenciesType } from "@useCases/useCase";
-import { SqsQueue } from "@drivenAdapters/sqsQueue/sqsQueue";
-import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
-import { ThridPartyApiAdapter } from "@drivenAdapters/thirdPartyApi/thirdPartyApi";
-import { EntityMysqlRepositoryFind } from '@drivenRepositories/myEntity/repository/mysqlRepositoryFind';
-import { EntityMysqlRepositoryTransaction } from '@drivenRepositories/myEntity/repository/mysqlRepositoryTransact';
-import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { EventBridgeEvent } from "aws-lambda";
-import { eventBridgeAdapter } from "@drivingAdapters/eventBridge/eventBridgeAdapter";
-import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
+import { SqsQueue } from "@infrastructure/driven/adapters/sqsQueue/sqsQueue";
+import mySqlConnection from "@infrastructure/driven/database/mysql/mysqlConnection";
+import { accountDebitCase, dependenciesType } from "@application/useCases/accountDebitCase";
+import { ThridPartyApiAdapter } from "@infrastructure/driven/adapters/thirdPartyApi/thirdPartyApi";
+import { eventBridgeAdapter } from "@infrastructure/driving/adapters/eventBridge/eventBridgeAdapter";
+import { AccountMysqlRepository } from "@infrastructure/driven/repositories/account/accountMysqlRepository";
+import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
 
-const entityMapper = new MyEntityMapper();
+mySqlConnection.createPool();
+
 const dependencies: dependenciesType = {
     thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
     messageQueue: new SqsQueue(QUEUE_URL),
-    repositoryFind: new EntityMysqlRepositoryFind(entityMapper),
-    repositoryTransaction: new EntityMysqlRepositoryTransaction(entityMapper),
+    repository: new AccountMysqlRepository(mySqlConnection)
 }
 
-const useCase = new UseCase();
+const useCase = new accountDebitCase();
 
 export const handler = async (event: EventBridgeEvent<any,any>) => {
 

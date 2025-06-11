@@ -1,6 +1,6 @@
-import { MessageCasePort } from "@primaryPorts/useCases/messageCasePort";
-import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
+import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
+import { MessageCasePort } from "@application/ports/primaryPorts/useCases/messageCasePort";
 export type dependenciesType = {
     messageQueue: QueuePort,
 }

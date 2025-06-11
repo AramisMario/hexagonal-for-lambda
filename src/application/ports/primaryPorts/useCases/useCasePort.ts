@@ -1,6 +1,7 @@
-import { dependenciesType } from "@useCases/useCase";
-import { CaseData } from "@domain/models/caseData";
+import { DebitAccount } from "@models/debitAccount";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
+import { dependenciesType } from "@application/useCases/accountDebitCase";
+
 export interface UseCasePort{
-    exec(data: CaseData, dependencies: dependenciesType): Promise<DebitedSuccessful>
+    exec(data: DebitAccount, dependencies: dependenciesType): Promise<DebitedSuccessful>
 }

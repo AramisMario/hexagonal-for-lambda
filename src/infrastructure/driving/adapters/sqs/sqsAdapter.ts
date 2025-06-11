@@ -1,32 +1,27 @@
 import { SQSEvent } from "aws-lambda";
-import { UseCasePort } from "@primaryPorts/useCases/useCasePort";
-import { dependenciesType } from "@application/useCases/useCase";
-import { BodyMapper } from "@drivingMappers/bodyMapper";
-import { validate } from "class-validator";
-import { EntityPreconditionFailed } from "@domainErrors/entityErrors/entityPreconditionFail";
-import { TransactionValidationFail } from "@domainErrors/entityErrors/transactionValidationFail";
-import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
-import { CaseDataMapper } from "@drivingMappers/dataMapper";
+import { dependenciesType } from "@application/useCases/accountDebitCase";
+import { DebitRequestDTO } from "@infrastructure/driving/DTOs/DebitRequestDTO";
+import { UseCasePort } from "@application/ports/primaryPorts/useCases/useCasePort";
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
-import { CaseData } from "@domain/models/caseData";
+import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
+import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";
+import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
 export const sqsAdapter = (useCase: UseCasePort) => async (event:SQSEvent,dependencies:dependenciesType) => {
 
     const records = event.Records;
 
     for(const record of records){
         try{
-            const requestDTO = BodyMapper.mapToDTO(record.body);
-            const isValid = (await validate(requestDTO)).length > 0 ? false : true;
-    
-            if(!isValid){
+            const body = JSON.parse(record.body);
+
+            if(!DebitRequestDTO.safeParse(body).success){
                 // log the validation error
                 throw new BadRequestError();
             }
-            const caseData: CaseData = CaseDataMapper.mapCaseData(requestDTO);
 
-            await useCase.exec(caseData,dependencies);
+            await useCase.exec(body,dependencies);
 
-        }catch(error){
+        }catch(error: any){
             switch(error.code){
 
                 case BadRequestError.code:

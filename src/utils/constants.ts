@@ -1,6 +1,11 @@
-export const THIRD_PARTY_URL = "url";
-export const QUEUE_URL = "queueURL";
+export const THIRD_PARTY_URL = process.env.THIRD_PARTY_URL ||  "url";
+export const QUEUE_URL = process.env.QUEUE_URL || "queueURL";
 
+export const TRANSACTION_TYPES = {
+
+    DEBIT: "DEBIT"
+
+};
 
 export const HTTP_RESPONSES = {
     INTERNAL_SERVER_ERROR:{

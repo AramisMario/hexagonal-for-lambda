@@ -1,7 +1,7 @@
-import { ThirdPartyApiPort } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
-import { ThirdPartyApiErrorMapper } from "./thirdPartyErrorMapper/thirdPartyErrorMapper";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
-import { ThridPartyPortResponseType } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
+import { ThirdPartyApiErrorMapper } from "./thirdPartyErrorMapper/thirdPartyErrorMapper";
+import { ThirdPartyApiPort } from "@application/ports/secondaryPorts/thirdPartyApi/thirdPartyApiPort";
+import { ThridPartyPortResponseType } from "@application/ports/secondaryPorts/thirdPartyApi/thirdPartyApiPort";
 export class ThridPartyApiAdapter implements ThirdPartyApiPort{
 
     private url: string;
@@ -35,7 +35,7 @@ export class ThridPartyApiAdapter implements ThirdPartyApiPort{
 
             return { confirmation: result.data.data.confirmation };
 
-        }catch(error){
+        }catch(error:any){
             //lag the error here
             this.errorMapper.setCode(error.code);
             throw this.errorMapper.map();

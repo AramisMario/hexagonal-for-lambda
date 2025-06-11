@@ -1,14 +1,15 @@
-import { TransactionCasePort } from "@primaryPorts/useCases/transactionCasePort";
-import { Entity } from "@domain/entities/entity";
-import { TransactionTypes } from "@domain/types/transactions";
-import { RepositoryPortTransaction } from "@domain/repository/repositoryPortTransact";
+import { Account } from "@domain/models/account";
+import { TRANSACTION_TYPES } from "@utils/constants";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
+import { AccountRepository } from "@domain/repository/accountRepository";
+import { TransactionCasePort } from "@application/ports/primaryPorts/useCases/transactionCasePort";
+
 export type dependenciesType = {
-    repositoryTransaction: RepositoryPortTransaction
+    repository: AccountRepository
 };
 
 export type dataType = {
-    account: Entity, 
+    account: Account, 
     amount: number
 }
 
@@ -17,11 +18,11 @@ export class TransactionCase implements TransactionCasePort{
 
     async exec(data: dataType, dependencies: dependenciesType): Promise<DebitedSuccessful>{
         
-        const { repositoryTransaction } = dependencies;
+        const { repository } = dependencies;
         const { account, amount } = data;
 
         try{
-            return await repositoryTransaction.transaction(account, TransactionTypes.DEBIT, amount);
+            return await repository.transaction(account, TRANSACTION_TYPES.DEBIT, amount);
         }catch(error){
             // handle and log the error
             throw error;

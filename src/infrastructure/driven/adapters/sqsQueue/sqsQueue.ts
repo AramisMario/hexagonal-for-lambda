@@ -1,9 +1,9 @@
 
-import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
-import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
+const AWS = require("aws-sdk");
 import { SQS, SendMessageCommandInput } from "@aws-sdk/client-sqs";
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
-const AWS = require("aws-sdk");
+import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
+import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
 
 export class SqsQueue implements QueuePort{
     private queueUrl: string;
@@ -19,7 +19,7 @@ export class SqsQueue implements QueuePort{
                 
             } as SendMessageCommandInput
 
-            return (await this.SQS.sendMessage(params)).MessageId;
+            return (await this.SQS.sendMessage(params)).MessageId as string;
         }catch(error){
             throw new UnexpectedError();
         }

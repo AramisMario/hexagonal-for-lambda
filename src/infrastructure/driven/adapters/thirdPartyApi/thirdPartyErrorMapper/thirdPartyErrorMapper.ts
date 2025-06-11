@@ -1,9 +1,8 @@
-import { ErrorMapper } from "@drivenMappers/errorMapperInterface/errorMapperInterface";
-import { THIRD_PARTY_ERRORS } from "@thirdPartyErrors/thirPartyErrors";
-import { UnexpectedError } from "@domainErrors/generalErrors/unexpectedError";
-export class ThirdPartyApiErrorMapper implements ErrorMapper{
+import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
+import { THIRD_PARTY_ERRORS } from "@infrastructure/driven/adapters/thirdPartyApi/errors/thirPartyErrors";
+export class ThirdPartyApiErrorMapper{
 
-    private errorCode: string;
+    private errorCode: string = '';
 
     setCode(errorCode:string){
         this.errorCode = errorCode;

@@ -1,24 +1,23 @@
 import 'module-alias/register';
-import { UseCase, dependenciesType } from "@useCases/useCase";
-import { SqsQueue } from "@drivenAdapters/sqsQueue/sqsQueue";
-import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
-import { ThridPartyApiAdapter } from "@drivenAdapters/thirdPartyApi/thirdPartyApi";
-import { EntityMysqlRepositoryFind } from '@drivenRepositories/myEntity/repository/mysqlRepositoryFind';
-import { EntityMysqlRepositoryTransaction } from '@drivenRepositories/myEntity/repository/mysqlRepositoryTransact';
-import { MyEntityMapper } from "@drivenMappers/myEntityMapper/myEntityMapper";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
-import { apigatewayAdapter } from "@drivingAdapters/apigateway/apiGatewayAdapter";
-import { ThirdPartyApiErrorMapper } from '@drivenAdapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import { QUEUE_URL, THIRD_PARTY_URL } from "@utils/constants";
+import { SqsQueue } from "@infrastructure/driven/adapters/sqsQueue/sqsQueue";
+import { accountDebitCase, dependenciesType } from "@application/useCases/accountDebitCase";
+import { apigatewayAdapter } from '@infrastructure/driving/adapters/apigateway/apiGatewayAdapter';
+import { ThridPartyApiAdapter } from "@infrastructure/driven/adapters/thirdPartyApi/thirdPartyApi";
+import { AccountMysqlRepository } from '@infrastructure/driven/repositories/account/accountMysqlRepository';
+import { ThirdPartyApiErrorMapper } from '@infrastructure/driven/adapters/thirdPartyApi/thirdPartyErrorMapper/thirdPartyErrorMapper';
+import mySqlConnection from "@infrastructure/driven/database/mysql/mysqlConnection";
 
-const entityMapper = new MyEntityMapper();
+mySqlConnection.createPool();
+
 const dependencies: dependenciesType = {
     thirdPartyApi: new ThridPartyApiAdapter(THIRD_PARTY_URL, new ThirdPartyApiErrorMapper()),
     messageQueue: new SqsQueue(QUEUE_URL),
-    repositoryFind: new EntityMysqlRepositoryFind(entityMapper),
-    repositoryTransaction: new EntityMysqlRepositoryTransaction(entityMapper),
+    repository: new AccountMysqlRepository(mySqlConnection)
 }
 
-const useCase = new UseCase();
+const useCase = new accountDebitCase();
 
 export const handler = async (event:APIGatewayProxyEventV2) => {
 

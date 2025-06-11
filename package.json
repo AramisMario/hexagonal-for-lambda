@@ -26,26 +26,16 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.782.0",
-    "class-validator": "^0.14.1"
+    "class-validator": "^0.14.1",
+    "mysql2": "^3.14.1",
+    "zod": "^3.24.4"
   },
   "_moduleAliases": {
-    "@application": "dist/application/",
-    "@domainErrors": "dist/domain/domainErrors/",
-    "@domain": "dist/domain/",
-    "@drivingAdapters": "dist/infrastructure/driving/adapters/",
-    "@drivenRepositories": "dist/infrastructure/driving/repositories/",
-    "@drivenMappers": "dist/infrastructure/driven/mappers/",
-    "@drivingMappers": "dist/infrastructure/driving/mappers/",
-    "@infrastructure": "dist/infrastructure",
-    "@useCases": "dist/application/useCases/",
-    "@entities": "dist/domain/entities/",
-    "@models": "dist/domain/models/",
-    "@secondaryPorts": "dist/application/ports/secondaryPorts/",
-    "@primaryPorts": "dist/application/ports/primaryPorts/",
-    "@baseError": "dist/domain/domainErrors/baseError/",
     "@utils": "dist/utils/",
-    "@dtos": "dist/infrastructure/driving/DTOs/",
-    "@repositoryErrors": "dist/infrastructure/driven/repositories/myEntity/repository/errors/",
-    "@thirdPartyErrors": "dist/infrastructure/driven/adapters/thirdPartyApi/errors/"
+    "@domain": "dist/domain/",
+    "@models": "dist/domain/models/",
+    "@application": "dist/application/",
+    "@infrastructure": "dist/infrastructure",
+    "@useCases": "dist/application/useCases/"
   }
 }

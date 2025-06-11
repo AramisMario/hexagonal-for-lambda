@@ -1,6 +1,6 @@
 import { DebitedSuccessful } from "@domain/models/debitedSucess";
-import { ThirdPartyApiCasePort } from "@primaryPorts/useCases/thirdPartyApiCasePort";
-import { ThirdPartyApiPort, ThridPartyPortResponseType } from "@secondaryPorts/thirdPartyApi/thirdPartyApiPort";
+import { ThirdPartyApiCasePort } from "@application/ports/primaryPorts/useCases/thirdPartyApiCasePort";
+import { ThirdPartyApiPort, ThridPartyPortResponseType } from "@application/ports/secondaryPorts/thirdPartyApi/thirdPartyApiPort";
 
 export type dependenciesType = {
     thirdPartyApi: ThirdPartyApiPort,
