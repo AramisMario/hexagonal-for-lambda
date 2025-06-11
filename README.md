@@ -26,7 +26,7 @@ The Domain is the core of the service. It contains the business logic and should
 # Models
 Models are interfaces that represent the business objects with which our core works.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/domain/models/debitedSucess.ts#L1-L4
+https://github.com/AramisMario/hexagonal-for-lambda/blob/7805d97ba11a10716e78d0eafdef1e632d506d08/src/domain/models/account.ts#L1-L16
 
 # Value Objects
 Value Objects are classes used to represent data in a more complex way than a primitive value. For example, an address could be stored as a string, but if we want to attach validation logic and work with the individual parts of the address, we need something more than a string and use a class to represent the address.
@@ -41,7 +41,7 @@ https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caa
 # Repository
 Domain Repository are the interfaces that we use to model the acces to the data from our domain.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/ce6ecaad14dd7caf05f9ac0797ef43e05d652bf2/src/domain/repository/repositoryPortFind.ts#L1-L4
+https://github.com/AramisMario/hexagonal-for-lambda/blob/7805d97ba11a10716e78d0eafdef1e632d506d08/src/domain/repository/accountRepository.ts#L1-L9
 
 # Application
 The Application is the layer where we define our ports and use cases.
@@ -84,9 +84,9 @@ The Driving folder contains everything related to the consumption of our service
 # Driving Adapters
 The driving adapter is a function responsible for connecting the core to a particular entry point and performing the necessary validations and transformations on the data. For example, we could have an adapter for HTTP requests used to call our core and another adapter for requests coming from an SQS message or an EventBridge event. It is important to maintain low coupling, so it is necessary to use interfaces between the adapter and use case. These interfaces are the primary adapters defined in the application layer.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/infrastructure/driving/adapters/apigateway/apiGatewayAdapter.ts#L13-L70
+https://github.com/AramisMario/hexagonal-for-lambda/blob/7805d97ba11a10716e78d0eafdef1e632d506d08/src/infrastructure/driving/adapters/apigateway/apiGatewayAdapter.ts#L13-L70
 
 # DTO
 A DTO (Data Transfer Object) is like a contract that specifies the properties a request object must have to be valid for our service. Moreover, it defines the object the client can expect as a response.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/infrastructure/driving/DTOs/requestDTO.ts#L1-L17
+https://github.com/AramisMario/hexagonal-for-lambda/blob/7805d97ba11a10716e78d0eafdef1e632d506d08/src/infrastructure/driving/DTOs/DebitResponseDTO.ts#L1-L16
