@@ -1,7 +1,7 @@
 import { EventBridgeEvent } from "aws-lambda";
 import { dependenciesType } from "@application/useCases/accountDebitCase";
 import { DebitRequestDTO } from "@infrastructure/driving/DTOs/DebitRequestDTO";
-import { UseCasePort } from "@application/ports/primaryPorts/useCases/useCasePort";
+import { UseCasePort } from "@application/ports/primaryPorts/useCases/accountDebitPort";
 import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
 import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";

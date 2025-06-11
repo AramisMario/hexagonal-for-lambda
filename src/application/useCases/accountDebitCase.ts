@@ -7,7 +7,7 @@ import { TransactionCase } from "@useCases/transactionCase";
 import { ThirdPartyApiCase } from "@useCases/thirdParyApiCase";
 import { AccountRepository } from "@domain/repository/accountRepository";
 import { QueuePort } from "@application/ports/secondaryPorts/queue/queuePort";
-import { UseCasePort } from "@application/ports/primaryPorts/useCases/useCasePort";
+import { AccountDebitPort } from "@application/ports/primaryPorts/useCases/accountDebitPort";
 import { FindAccountCasePort } from "@application/ports/primaryPorts/useCases/findAccountCasePort";
 import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";
 import { ThirdPartyApiPort } from "@application/ports/secondaryPorts/thirdPartyApi/thirdPartyApiPort";
@@ -18,7 +18,7 @@ export type dependenciesType = {
     repository: AccountRepository,
 };
 
-export class accountDebitCase implements UseCasePort{
+export class accountDebitCase implements AccountDebitPort{
 
     async exec(data: DebitAccount, dependencies: dependenciesType){
         const { thirdPartyApi, messageQueue, repository } = dependencies;
