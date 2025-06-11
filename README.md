@@ -62,7 +62,7 @@ https://github.com/AramisMario/hexagonal-for-lambda/blob/ce6ecaad14dd7caf05f9ac0
 # Use Cases
 Use cases execute the logic of our application by calling entity methods, external services, and performing their own logic and validations.
 
-https://github.com/AramisMario/hexagonal-for-lambda/blob/bfc34c0cb2f8581eb252caad63f97c7b02fa687c/src/application/useCases/useCase.ts#L20-L78
+https://github.com/AramisMario/hexagonal-for-lambda/blob/5cf2119034c7152617de905c0852321a6a00b51b/src/application/useCases/accountDebitCase.ts#L21-L74
 
 # Infrastructure
 The Infrastructure layer is used to communicate the core with "the external world." Here, we implement the ports, known as Adapters.
