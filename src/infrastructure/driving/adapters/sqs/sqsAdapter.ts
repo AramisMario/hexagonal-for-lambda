@@ -1,12 +1,12 @@
 import { SQSEvent } from "aws-lambda";
 import { dependenciesType } from "@application/useCases/accountDebitCase";
 import { DebitRequestDTO } from "@infrastructure/driving/DTOs/DebitRequestDTO";
-import { UseCasePort } from "@application/ports/primaryPorts/useCases/accountDebitPort";
+import { AccountDebitPort } from "@application/ports/primaryPorts/useCases/accountDebitPort";
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
 import { UnexpectedError } from "@domain/domainErrors/generalErrors/unexpectedError";
 import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";
 import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
-export const sqsAdapter = (useCase: UseCasePort) => async (event:SQSEvent,dependencies:dependenciesType) => {
+export const sqsAdapter = (useCase: AccountDebitPort) => async (event:SQSEvent,dependencies:dependenciesType) => {
 
     const records = event.Records;
 

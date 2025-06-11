@@ -4,14 +4,14 @@ import { HTTP_RESPONSES } from "@utils/constants";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { dependenciesType } from "@application/useCases/accountDebitCase";
 import { DebitRequestDTO } from '@infrastructure/driving/DTOs/DebitRequestDTO';
-import { UseCasePort } from "@application/ports/primaryPorts/useCases/accountDebitPort";
+import { AccountDebitPort } from "@application/ports/primaryPorts/useCases/accountDebitPort";
 import { UnexpectedError } from '@domain/domainErrors/generalErrors/unexpectedError';
 import { BadRequestError } from '@infrastructure/driving/httpErrors/badRequestError';
 import { DebitResponseDTOtype } from "@infrastructure/driving/DTOs/DebitResponseDTO";
 import { EntityPreconditionFailed } from "@domain/domainErrors/entityErrors/entityPreconditionFail";
 import { TransactionValidationFail } from "@domain/domainErrors/entityErrors/transactionValidationFail";
 
-export const apigatewayAdapter = (useCase: UseCasePort) => async (event:APIGatewayProxyEventV2,dependencies:dependenciesType) => {
+export const apigatewayAdapter = (useCase: AccountDebitPort) => async (event:APIGatewayProxyEventV2,dependencies:dependenciesType) => {
 
     try{
         const body = JSON.parse(event.body as string);
